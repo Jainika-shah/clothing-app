@@ -1,5 +1,5 @@
 import React from 'react';
-import './homePageStyles.css'
+import './homePageStyles.scss'
 
 function HomePage(){
     return <div>
@@ -43,4 +43,4 @@ function HomePage(){
     </div>
 
 }
-export default HomePage
+export default HomePage;
