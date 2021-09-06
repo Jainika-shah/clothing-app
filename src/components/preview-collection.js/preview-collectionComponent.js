@@ -13,7 +13,7 @@ function PreviewCollection({title, items, id}){
                     return index < 4;
                 })
                 .map(item => {
-                    return <CollectionItem key={item.id} name={item.name} imageURL={item.imageUrl} price={item.price}> {item.name} </CollectionItem>
+                    return <CollectionItem key={item.id} item={item}> {item.name} </CollectionItem>
                 })
             }
         </div>
