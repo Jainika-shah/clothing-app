@@ -1,40 +1,39 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import HomePage from './pages/homepage/homepageComponent';
 import ShopPage from './pages/shop/shoppageComponent';
 import Header from './components/header/headerComponent';
-import signInPage from './pages/signInPage/signInComponent';
-import { Switch,Route } from 'react-router-dom';
+import SignInPage from './pages/signInPage/signInComponent';
+import { Switch,Route, Redirect} from 'react-router-dom';
 import {auth, createUserProfileDoc} from '../src/firebase/firebaseUtlis';
 
 import { connect } from 'react-redux';
-import {setCurrentUser} from './redux/user/userAction'
-function App(){
-  const [currentUser, setCurrentUser] = useState(null);
+import {setCurrentUser} from './redux/user/userAction';
 
-  let unSubscribeFromAuth = null;
+
+function App(props){
+  
   useEffect(() => {
-    unSubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      // setCurrentUser(userAuth);
+    let unSubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+
       if(userAuth) {
         const userRef = await createUserProfileDoc(userAuth);
-        // console.log(userRef);
 
-        const snapShot = userRef.onSnapshot(snap => {
-          // console.log(snap.data());
-          setCurrentUser({
-            userDetail :{
-              id : snap.id,
-              ...snap.data()
-            } 
+       userRef.onSnapshot(snap => {
+        
+          props.SetCurrentUser({
+            id : snap.id,
+            ...snap.data()
           })
         })
+        console.log(props.SetCurrentUser);
       }else{
-        setCurrentUser(userAuth);
+        props.SetCurrentUser(userAuth);
       }
     });
     return unSubscribeFromAuth;
   })
+
 
 
 
@@ -43,14 +42,25 @@ return <div>
   <Switch>
     <Route exact path="/" component={HomePage}/>
     <Route exact path="/shop" component={ShopPage}/>
-    <Route exact path="/signin" component={signInPage}/>
+    <Route exact path="/signin" render={() => props.currentUser ? (<Redirect to="/" />) : (<SignInPage/>)}/>
   </Switch>
 </div>
 
   // return <HomePage />
 }
 
+
+// use mapStateToProps when you need to access the value of state
+// this () goes to userReducer for the currentUser value
+const mapStateToProps = ({user}) =>{
+  return {
+    currentUser : user.currentUser
+  }
+}
+
+// use mapDispatchToProps when you need to set state.
+// this () goes to userAction to set the currentuser value
 const mapDispatchToProps = dispatch =>({
-  setCurrentUser : user => dispatch(setCurrentUser(user))
+  SetCurrentUser : user => dispatch(setCurrentUser(user))
 })
-export default connect(null,mapDispatchToProps)(App);
+export default connect(mapStateToProps,mapDispatchToProps)(App);

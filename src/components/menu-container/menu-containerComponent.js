@@ -3,7 +3,7 @@ import MenuItem from '../menu-item/menu-itemComponent'
 import './menu-containerStyles.scss';
 
 const MenuContainer = () =>{
-    const [sections, setSections] = useState([
+    const [sections] = useState([
         {
             id: 1,
             title : 'Hats',

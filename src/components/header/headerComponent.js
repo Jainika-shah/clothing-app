@@ -7,6 +7,7 @@ import { auth } from '../../firebase/firebaseUtlis';
 import { connect } from 'react-redux';
 
 function Header({currentUser}){
+    console.log(currentUser);
     return <div className="header">
         <Link to='/' className="logo-container">
             <h2>JS</h2>
@@ -22,12 +23,14 @@ function Header({currentUser}){
                     }}>
                     SIGN OUT
                 </div> : <Link to="/signin">SIGN IN</Link>
+                
             }
         </div>
     </div>
 }
 
-// a () that allows us to access the rootReducer.
+// a () that allows us to access the rootReducer. 
+// use mapStateToProps when you need the value of state
 const mapStateToProps = (state) =>({
     // returning the currentUser so we can use it in our component.
     // state.user.currentUser : comes from the rootreducer

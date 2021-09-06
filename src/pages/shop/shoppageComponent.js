@@ -3,7 +3,7 @@ import ShopData from './shopData';
 import PreviewCollection from '../../components/preview-collection.js/preview-collectionComponent';
 
 function ShopPage(){
-    const [collections, setCollections] = useState(ShopData);
+    const [collections] = useState(ShopData);
 
     return <div>
         {
