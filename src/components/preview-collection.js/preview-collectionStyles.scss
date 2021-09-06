@@ -1,0 +1,13 @@
+.collection-preview-container{
+    display: flex;
+    flex-direction: column;
+
+    .title{
+        font-size: 3rem;
+
+    }
+    .preview-item{
+        display: flex;
+        justify-content: space-between;
+    }
+}
