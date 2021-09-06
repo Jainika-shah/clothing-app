@@ -5,8 +5,10 @@ import { auth } from '../../firebase/firebaseUtlis';
 
 // connect: higher order component that lets our component get access to redux.
 import { connect } from 'react-redux';
+import CartDropdown from '../cartDropdown/cartDropdownComponent';
+import CartIcon from '../cartIcon/cartIconComponent';
 
-function Header({currentUser}){
+function Header({currentUser, hidden}){
     console.log(currentUser);
     return <div className="header">
         <Link to='/' className="logo-container">
@@ -25,7 +27,12 @@ function Header({currentUser}){
                 </div> : <Link to="/signin">SIGN IN</Link>
                 
             }
+            <CartIcon/>
         </div>
+        {
+            hidden ? null :<CartDropdown/>
+        }
+        
     </div>
 }
 
@@ -34,6 +41,7 @@ function Header({currentUser}){
 const mapStateToProps = (state) =>({
     // returning the currentUser so we can use it in our component.
     // state.user.currentUser : comes from the rootreducer
-    currentUser : state.user.currentUser
+    currentUser : state.user.currentUser,
+    hidden : state.cart.hidden
 })
 export default connect(mapStateToProps)(Header);
