@@ -6,7 +6,7 @@ import Header from './components/header/headerComponent';
 import SignInPage from './pages/signInPage/signInComponent';
 import { Switch,Route, Redirect} from 'react-router-dom';
 import {auth, createUserProfileDoc} from '../src/firebase/firebaseUtlis';
-
+import checkOutPage from './pages/checkout/checkoutComponent';
 import { connect } from 'react-redux';
 import {setCurrentUser} from './redux/user/userAction';
 
@@ -41,7 +41,8 @@ return <div>
   <Header/>
   <Switch>
     <Route exact path="/" component={HomePage}/>
-    <Route exact path="/shop" component={ShopPage}/>
+    <Route path="/shop" component={ShopPage}/>
+    <Route exact path ="/checkout" component={checkOutPage}/>
     <Route exact path="/signin" render={() => props.currentUser ? (<Redirect to="/" />) : (<SignInPage/>)}/>
   </Switch>
 </div>
