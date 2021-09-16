@@ -1,0 +1,15 @@
+.category-page{
+    display: flex;
+    flex-direction: column;
+
+    .title{
+        font-size: 3.2rem;
+        margin: 0 auto 4rem;
+    }
+
+    .items{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+}

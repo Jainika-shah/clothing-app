@@ -4,6 +4,7 @@ import CollectionItem from '../collection-item/collection-itemComponent';
 
 
 function PreviewCollection({title, items, id}){
+    console.log(items)
     return <div className="collection-preview-container">
         <h1 className="title">{title}</h1>
         <div className="preview-item">
